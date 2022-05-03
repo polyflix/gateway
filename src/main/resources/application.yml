@@ -1,1 +1,5 @@
-
+polyflix:
+  services:
+    legacy: "http://localhost:5000/"
+    note: "http://localhost:5001/"
+    video: "http://localhost:5002/"
