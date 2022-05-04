@@ -1,7 +1,7 @@
 package fr.polyflix.gateway
 
 import fr.polyflix.gateway.config.UriConfiguration
-import org.slf4j.LoggerFactory
+import fr.polyflix.gateway.filters.AuthFilter
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean
 @EnableConfigurationProperties(UriConfiguration::class)
 class GatewayApplication {
     @Bean
-    fun myRoutes(builder: RouteLocatorBuilder, uriConfiguration: UriConfiguration): RouteLocator? {
+    fun myRoutes(builder: RouteLocatorBuilder, uriConfiguration: UriConfiguration, authFilter: AuthFilter): RouteLocator? {
         return builder.routes()
             .route {
                 it
