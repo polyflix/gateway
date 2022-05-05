@@ -17,23 +17,9 @@ class GatewayApplication {
         return builder.routes()
             .route {
                 it
-                    .path("/api/*/note/**")
-                    .filters { f ->
-                        f.rewritePath(
-                            "api/(?<version>.*)/note/(?<segment>.*)",
-                            "api/\${version}/\${segment}"
-                        )
-                    }
-                    .uri(uriConfiguration.note)
-            }
-            .route {
-                it
                     .path("/api/*/video/**")
                     .filters { f ->
-                        f.rewritePath(
-                            "api/(?<version>.*)/video/(?<segment>.*)",
-                            "api/\${version}/\${segment}"
-                        )
+                        f.stripPrefix(1)
                     }
                     .uri(uriConfiguration.video)
             }
