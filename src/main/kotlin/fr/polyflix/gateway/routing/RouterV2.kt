@@ -34,7 +34,7 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
                     .filters { f ->
                         f.stripPrefix(1)
                     }
-                    .uri(uriConfiguration.quiz)
+                    .uri(uriConfiguration.quizz)
             }
             .route {
                 it
