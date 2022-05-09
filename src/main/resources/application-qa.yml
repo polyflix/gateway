@@ -1,0 +1,10 @@
+polyflix:
+  services:
+    legacy: "http://backend/"
+    note: "http://note/"
+    video: "http://video/"
+    quizz: "http://quizz/"
+    certification: "http://certification/"
+    catalog: "http://catalog/"
+    attachment: "http://attachment/"
+    search: "http://search"
