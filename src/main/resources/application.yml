@@ -14,3 +14,4 @@ polyflix:
     certification: "http://localhost:5004/"
     catalog: "http://localhost:5005/"
     attachment: "http://localhost:5006/"
+    search: "http://localhost:5007"
