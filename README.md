@@ -10,7 +10,7 @@ For now, the Polyflix API Gateway acts as a path through with a versioning gestu
 
 ## Installation
 You will need
-* JDK 1.8 or later
+* Java 11 or later
 * Maven 3.2+
 
 Clone the project: 
@@ -58,3 +58,32 @@ example:
 |----------------------|:-----------------------:|
 | /v2.0.0/video/health | api/v2.0.0/video/health |
 
+
+## Authorization
+
+The Gateway authorization management is very simple for now.
+
+The authentification is still managed by the backend legacy
+that is now accessed by the gateway.
+
+Once you are authenticated you have to pass a JWT in the requests header.
+
+```json
+{
+  "Authorization": "Bearer eyJhbGc...",
+  ...
+}
+```
+
+The gateway will try to get information about the user related
+with the JWT and add them to the header before forwarding the request.
+
+```json
+{
+  "Authorization": "Bearer eyJhbGc...",
+  // Id of the user
+  "X-User-Id": "...",
+  // roles of the user
+  "X-User-Roles": "..."
+}
+```
