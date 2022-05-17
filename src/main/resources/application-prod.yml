@@ -1,3 +1,11 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "https://polyflix.dopolytech.fr"
+
 polyflix:
   services:
     legacy: "http://localhost:5000/"
@@ -8,11 +16,3 @@ polyflix:
     catalog: "http://localhost:5005/"
     attachment: "http://localhost:5006/"
     search: "http://localhost:5007"
-
-spring:
-  cloud:
-    gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowed-origins: "https://polyflix.dopolytech.fr"

@@ -1,33 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-    <appender name="JSON" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
-            <jsonFormatter
-                    class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
-                <prettyPrint>true</prettyPrint>
-            </jsonFormatter>
-            <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+    <appender name="defaultAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
         </layout>
     </appender>
-
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-        <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
-        </encoder>
-    </appender>
-
-    <springProfile name="prod | qa | default">
-        <root level="debug">
-            <appender-ref ref="JSON"/>
+    <springProfile name="!(default | local)">
+        <logger name="jsonLogger" additivity="false" level="DEBUG">
+            <appender-ref ref="consoleAppender"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="consoleAppender"/>
         </root>
     </springProfile>
-
-    <springProfile name="!(prod | qa)">
-        <root level="info">
-            <appender-ref ref="STDOUT"/>
+    <springProfile name="default | local">
+        <root level="INFO">
+            <appender-ref ref="defaultAppender"/>
         </root>
     </springProfile>
-
 </configuration>
