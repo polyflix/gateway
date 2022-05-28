@@ -13,5 +13,6 @@ data class UriConfiguration(
     val certification: String?,
     val attachment: String?,
     val catalog: String?,
-    val search: String?
+    val search: String?,
+    val user: String?
 )

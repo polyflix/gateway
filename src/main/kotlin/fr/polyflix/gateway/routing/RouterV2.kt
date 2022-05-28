@@ -75,6 +75,14 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
                         f.stripPrefix(1)
                     }
                     .uri(uriConfiguration.catalog)
+            }
+            .route {
+                it
+                    .path("/api/v2.0.0/users/**")
+                    .filters { f ->
+                        f.stripPrefix(2)
+                    }
+                    .uri(uriConfiguration.user)
             }.build()
     }
 }

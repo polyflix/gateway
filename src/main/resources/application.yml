@@ -1,15 +1,23 @@
 spring:
-  main:
-    web-application-type: reactive
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
       globalcors:
         cors-configurations:
           '[/**]':
-            allowed-origins: "http://localhost:3000"
+            allowed-origin-patterns: "*"
             allowed-methods: "*"
             allowed-headers: "*"
             allow-credentials: true
+
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:3002/realms/Polyflix/protocol/openid-connect/token/introspect
+          client-id: polyflix-gateway
+          client-secret: TinxM2QXGzWkUdWUIOXzKbjHnpSRiYSn
 
 server:
   port: 4000
@@ -17,6 +25,7 @@ server:
 polyflix:
   services:
     legacy: "http://localhost:4001/"
+    user: "http://localhost:4002/"
     note: "http://localhost:5001/"
     video: "http://localhost:5002/"
     quizz: "http://localhost:5003/"

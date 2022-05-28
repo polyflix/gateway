@@ -3,34 +3,36 @@ package fr.polyflix.gateway.filters
 import fr.polyflix.gateway.models.User
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.configurationprocessor.json.JSONObject
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
 import org.springframework.cloud.gateway.filter.GlobalFilter
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
+import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
+import java.util.Base64
 
 @Component
 class AuthFilter: GlobalFilter {
-    @Value("\${polyflix.services.legacy}")
-    private val legacyUrl = ""
+    @Value("\${polyflix.services.user}")
+    private val userService = ""
 
-    private val logger = LoggerFactory.getLogger(this::class.java)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
-    private fun getUserFromLegacy(authorizationToken: String): User? {
+    private fun getUser(authorizationToken: String): User? {
         // Set the headers for the get user request
         val headers = HttpHeaders()
         headers.set("Authorization", "Bearer $authorizationToken")
-
         try {
             val httpEntity = HttpEntity<User>(headers)
             val responseEntity = RestTemplateBuilder()
                 .build()
-                .exchange("${legacyUrl}/api/v1/users/me", HttpMethod.GET, httpEntity, User::class.java)
+                .exchange("${userService}/users/${getSubFromToken(authorizationToken)}", HttpMethod.GET, httpEntity, User::class.java)
 
             logger.info("Successfully retrieved authenticated ${responseEntity.body}")
 
@@ -45,15 +47,23 @@ class AuthFilter: GlobalFilter {
         return authorizationHeader?.split(" ")?.get(1)
     }
 
+    /**
+     * Decode the JWT to extract the sub, which corresponds to the user id.
+     */
+    private fun getSubFromToken(authorizationToken: String): String {
+        val chunks = authorizationToken.split(".")
+        val decoder = Base64.getUrlDecoder()
+        val payload = JSONObject(String(decoder.decode(chunks[1])))
+        return payload.getString("sub")
+    }
+
     override fun filter(exchange: ServerWebExchange, chain: GatewayFilterChain): Mono<Void> {
         val authorizationHeader = extractTokenFromAuthorizationHeader(exchange.request.headers.getFirst("Authorization")) ?: return chain.filter(exchange)
-
-        logger.info("Trying to retrieve the authenticated user")
-        val user = getUserFromLegacy(authorizationHeader)
+        val user = getUser(authorizationHeader)
 
         val request = exchange.request
             .mutate()
-            .header("Authorization", authorizationHeader)
+            .header("Authorization", "Bearer $authorizationHeader")
             // Add headers for microservices
             .header("X-User-Id", user?.id)
             .header("X-User-Roles", user?.roles?.joinToString(separator = ","))
