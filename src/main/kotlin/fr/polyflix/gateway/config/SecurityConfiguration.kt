@@ -13,6 +13,8 @@ class SecurityConfiguration {
     fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain  {
         http.authorizeExchange {
             it
+                .pathMatchers("/actuator/**")
+                .permitAll()
                 .anyExchange()
                 .authenticated()
         }.oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::opaqueToken)
