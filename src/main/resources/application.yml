@@ -24,3 +24,4 @@ polyflix:
     catalog: "http://localhost:5005/"
     attachment: "http://localhost:5006/"
     search: "http://localhost:5007"
+    subtitle: "http://localhost:5008"
