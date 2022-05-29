@@ -1,10 +1,20 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: https://sso.qapolyflix.dopolytech.fr/realms/polyflix/protocol/openid-connect/token/introspect
+          client-id: polyflix-gateway
+
 polyflix:
   services:
-    legacy: "http://backend/"
-    note: "http://note/"
-    video: "http://video/"
-    quizz: "http://quizz/"
-    certification: "http://certification/"
-    catalog: "http://catalog/"
-    attachment: "http://attachment/"
-    search: "http://search"
+    legacy: http://backend/
+    note: http://note/
+    video: http://video/
+    quizz: http://quizz/
+    certification: http://certification/
+    catalog: http://catalog/
+    attachment: http://attachment/
+    search: http://search
+    user: http://user
+    subtitle: http://subtitle
