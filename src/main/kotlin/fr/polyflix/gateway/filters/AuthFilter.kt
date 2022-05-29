@@ -1,16 +1,16 @@
 package fr.polyflix.gateway.filters
 
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import fr.polyflix.gateway.models.User
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.configurationprocessor.json.JSONObject
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
 import org.springframework.cloud.gateway.filter.GlobalFilter
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
-import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.server.ServerWebExchange
@@ -53,8 +53,8 @@ class AuthFilter: GlobalFilter {
     private fun getSubFromToken(authorizationToken: String): String {
         val chunks = authorizationToken.split(".")
         val decoder = Base64.getUrlDecoder()
-        val payload = JSONObject(String(decoder.decode(chunks[1])))
-        return payload.getString("sub")
+        val payload = Gson().fromJson(String(decoder.decode(chunks[1])), JsonObject::class.java)
+        return payload.get("sub").asString
     }
 
     override fun filter(exchange: ServerWebExchange, chain: GatewayFilterChain): Mono<Void> {
