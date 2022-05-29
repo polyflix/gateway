@@ -13,6 +13,8 @@ class SecurityConfiguration {
     fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain  {
         http.authorizeExchange {
             it
+                .pathMatchers("/api/v1/auth/**")
+                .permitAll()
                 .pathMatchers("/actuator/**")
                 .permitAll()
                 .anyExchange()
