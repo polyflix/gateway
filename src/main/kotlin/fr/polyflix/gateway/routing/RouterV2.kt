@@ -56,7 +56,7 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
                 it
                     .path("/api/v2.0.0/search/**")
                     .filters { f ->
-                        f.stripPrefix(1)
+                        f.stripPrefix(2)
                     }
                     .uri(uriConfiguration.search)
             }

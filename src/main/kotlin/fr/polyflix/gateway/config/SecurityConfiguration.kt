@@ -15,6 +15,8 @@ class SecurityConfiguration {
             it
                 .pathMatchers("/api/v1/auth/**")
                 .permitAll()
+                .pathMatchers("/api/*/search/**")
+                .permitAll()
                 .pathMatchers("/actuator/**")
                 .permitAll()
                 .anyExchange()
