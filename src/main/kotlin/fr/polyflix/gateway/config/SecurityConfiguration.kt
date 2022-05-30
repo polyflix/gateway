@@ -22,6 +22,7 @@ class SecurityConfiguration {
                 .anyExchange()
                 .authenticated()
         }.oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::opaqueToken)
+            .csrf().disable()
         return http.build()
     }
 }
