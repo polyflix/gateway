@@ -66,7 +66,7 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
                     .filters { f ->
                         f.stripPrefix(1)
                     }
-                    .uri(uriConfiguration.search)
+                    .uri(uriConfiguration.subtitle)
             }
             .route {
                 it

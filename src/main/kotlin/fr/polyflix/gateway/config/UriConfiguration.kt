@@ -14,5 +14,6 @@ data class UriConfiguration(
     val attachment: String?,
     val catalog: String?,
     val search: String?,
-    val user: String?
+    val user: String?,
+    val subtitle: String?
 )
