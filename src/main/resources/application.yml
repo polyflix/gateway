@@ -17,7 +17,7 @@ spring:
         opaquetoken:
           introspection-uri: http://localhost:3002/realms/Polyflix/protocol/openid-connect/token/introspect
           client-id: polyflix-gateway
-          client-secret: igWdMbJxautjx3OC0MTjz7R2PWn9dQb2
+          client-secret: GatewaySecretFromKeycloak
 
 server:
   port: 4000
