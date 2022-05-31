@@ -34,8 +34,6 @@ class AuthFilter: GlobalFilter {
                 .build()
                 .exchange("${userService}/users/${getSubFromToken(authorizationToken)}", HttpMethod.GET, httpEntity, User::class.java)
 
-            logger.info("Successfully retrieved authenticated ${responseEntity.body}")
-
             return responseEntity.body
         } catch(e: HttpClientErrorException) {
             logger.error("Failed to get the authenticated user. Details = ${e.message}")
