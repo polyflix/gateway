@@ -85,13 +85,18 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
                     .uri(uriConfiguration.subtitle)
             }
             .route {
-                it
-                    .path("/api/v2.0.0/cursus/**").and().path("/api/v2.0.0/courses/**")
+                it                    
+                    .path("/api/v2.0.0/cursus/**")
+                    .or()
+                    .path("/api/v2.0.0/courses/**")
+                    .or()
+                    .path("/api/v2.0.0/modules/**")
                     .filters { f ->
                         f.stripPrefix(1)
                     }
                     .uri(uriConfiguration.catalog)
             }
+
             .route {
                 it
                     .path("/api/v2.0.0/users/**")
