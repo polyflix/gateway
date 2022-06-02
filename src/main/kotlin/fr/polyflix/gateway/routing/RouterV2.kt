@@ -78,6 +78,14 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
             }
             .route {
                 it
+                    .path("/api/v2.0.0/admin/subtitles/**")
+                    .filters { f ->
+                        f.stripPrefix(1)
+                    }
+                    .uri(uriConfiguration.subtitle)
+            }
+            .route {
+                it
                     .path("/api/v2.0.0/cursus/**").and().path("/api/v2.0.0/courses/**")
                     .filters { f ->
                         f.stripPrefix(1)
