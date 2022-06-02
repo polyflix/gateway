@@ -9,7 +9,7 @@ spring:
     oauth2:
       resourceserver:
         opaquetoken:
-          introspection-uri: https://sso.v2.polyflix.dopolytech.fr/realms/polyflix/protocol/openid-connect/token/introspect
+          introspection-uri: https://sso.polyflix.dopolytech.fr/realms/polyflix/protocol/openid-connect/token/introspect
           client-id: polyflix-gateway
 polyflix:
   services:
