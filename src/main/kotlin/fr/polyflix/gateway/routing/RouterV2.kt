@@ -22,6 +22,14 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
             }
             .route {
                 it
+                    .path("/api/v2.0.0/admin/videos/**")
+                    .filters { f ->
+                        f.stripPrefix(1)
+                    }
+                    .uri(uriConfiguration.video)
+            }
+            .route {
+                it
                     .path("/api/v2.0.0/notes/**")
                     .filters { f ->
                         f.stripPrefix(1)
