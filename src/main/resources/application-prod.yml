@@ -1,4 +1,9 @@
 spring:
+  sleuth:
+    otel:
+      exporter:
+        otlp:
+          endpoint: http://otel-opentelemetry-collector:4317
   cloud:
     gateway:
       globalcors:
