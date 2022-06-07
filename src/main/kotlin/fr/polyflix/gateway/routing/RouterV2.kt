@@ -95,6 +95,10 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
             .route {
                 it
                     .path("/api/v2.0.0/users/**")
+                    .or()
+                    .path("/api/v2.0.0/permissions/**")
+                    .or()
+                    .path("/api/v2.0.0/roles/**")
                     .filters { f ->
                         f.stripPrefix(2)
                     }

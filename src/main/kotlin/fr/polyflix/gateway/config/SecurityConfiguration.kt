@@ -15,6 +15,10 @@ class SecurityConfiguration {
             it
                 .pathMatchers("/api/*/users/**")
                 .permitAll()
+                .pathMatchers("/api/*/permissions/**")
+                .permitAll()
+                .pathMatchers("/api/*/roles/**")
+                .permitAll()
                 .pathMatchers("/api/v1/auth/**")
                 .permitAll()
                 .pathMatchers("/api/*/search/**")
