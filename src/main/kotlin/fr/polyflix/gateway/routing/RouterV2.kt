@@ -54,7 +54,7 @@ class RouterV2(private val uriConfiguration: UriConfiguration) {
             }
             .route {
                 it
-                    .path("/api/v2.0.0/attachements/**")
+                    .path("/api/v2.0.0/attachments/**")
                     .filters { f ->
                         f.stripPrefix(1)
                     }
