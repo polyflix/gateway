@@ -25,6 +25,8 @@ class SecurityConfiguration {
                 .permitAll()
                 .pathMatchers("/actuator/**")
                 .permitAll()
+                .pathMatchers("/api/*/certifications/certificate/{id}")
+                .permitAll()
                 .anyExchange()
                 .authenticated()
         }.oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::opaqueToken)
