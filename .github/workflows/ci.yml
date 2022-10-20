@@ -1,0 +1,15 @@
+name: Polyflix Gateway CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  gateway:
+    uses: polyflix/.github/.github/workflows/spring-ci.yml@main
