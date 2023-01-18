@@ -9,7 +9,7 @@
             <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
         </layout>
     </appender>
-    <springProfile name="!(default | local)">
+    <springProfile name="!(default | local | dev)">
         <logger name="jsonLogger" additivity="false" level="DEBUG">
             <appender-ref ref="consoleAppender"/>
         </logger>
@@ -17,7 +17,7 @@
             <appender-ref ref="consoleAppender"/>
         </root>
     </springProfile>
-    <springProfile name="default | local">
+    <springProfile name="default | local | dev">
         <root level="INFO">
             <appender-ref ref="defaultAppender"/>
         </root>
