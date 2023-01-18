@@ -1,0 +1,24 @@
+version: v2beta1
+name: gateway
+
+pipelines:
+  dev:
+    run: |-
+      ensure_pull_secrets --all
+      start_dev app
+
+dev:
+  app:
+    imageSelector: ghcr.io/polyflix/gateway:main
+    devImage: ghcr.io/loft-sh/devspace-containers/java-maven:3-openjdk-17-slim
+    sync:
+      - path: ./
+        excludePaths:
+          - .git/
+        uploadExcludePaths:
+          - Dockerfile
+          - target/
+    terminal:
+      command: ./devcontainer.sh
+    ports:
+      - port: "4000:8080"
